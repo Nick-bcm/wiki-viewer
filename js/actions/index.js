@@ -1,34 +1,32 @@
 import fetch from 'isomorphic-fetch'
-import { apiUrl } from '../settings'
+import { API_URL } from '../settings'
 
-
-export const REQUEST_SEARCH = 'REQUEST_SEARCH'
+export const REQUEST_WIKI_LIST = 'REQUEST_WIKI_LIST'
 
 function requestSearch(searchStr) {
   return {
-    type: REQUEST_SEARCH,
+    type: REQUEST_WIKI_LIST,
     searchStr
   }
 }
 
-export const RECEIVE_SEARCH = 'RECEIVE_SEARCH'
+export const RECEIVE_WIKI_LIST = 'RECEIVE_WIKI_LIST'
 
-function receiveSearch(searchStr, json) {
+function receiveSearch(json) {
   return {
-    type: RECEIVE_SEARCH,
+    type: RECEIVE_WIKI_LIST,
     wikiList: json && json.query ? json.query.pages : [],
-    receivedAt: Date.now(),
-    searchStr
+    receivedAt: Date.now()
   }
 }
 
 export function fetchSearch(searchStr) {
   return dispatch => {
     dispatch(requestSearch(searchStr))
-    return fetch(apiUrl + searchStr)
+    return fetch(API_URL + searchStr)
       .then(response => response.json())
       .then(json =>
-        dispatch(receiveSearch(searchStr, json))
+        dispatch(receiveSearch(json))
       )
   }
 }

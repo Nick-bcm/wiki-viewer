@@ -3,16 +3,23 @@ import { connect } from 'react-redux'
 import { fetchSearch } from '../actions'
 
 class Search extends Component {
+  constructor(props) {
+    super(props)
+    this.onFormSubmit = this.onFormSubmit.bind(this)
+  }
+
+  onFormSubmit(e, input) {
+    e.preventDefault();
+    if (input.value.trim()) {
+      this.props.onSubmit(input.value.trim())
+    }
+  }
+
   render() {
     let input;
     return (
       <div className="searchForm">
-        <form className="form-inline" onSubmit={e => {
-          e.preventDefault();
-          if (input.value.trim()) {
-            this.props.onSubmit(input.value.trim())
-          }
-        }}>
+        <form className="form-inline" onSubmit={e => this.onFormSubmit(e, input)}>
           <div className="form-group">
             <input
               className="form-control"

@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux'
-import search from './search'
+import isFetching from './isFetching'
+import wikiList from './wikiList'
 
 export default combineReducers({
-  search
+  isFetching,
+  wikiList
 })

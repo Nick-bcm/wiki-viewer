@@ -1,12 +1,15 @@
 import React, { Component, PropTypes } from 'react'
-import { openUrl } from '../settings'
+import { OPEN_URL } from '../settings'
 import moment from 'moment'
 
 export default class WikiItem extends Component{
   render() {
+    
     const { pageid, title, extract, original, length, touched } = this.props
+    const FOOTER_TEXT = (length/8|0)+ "Кб " + moment(touched).format("HH:mm, DD.MM.YYYY")
+
     return (
-      <a href={openUrl + pageid} target="_blank" className="item" >
+      <a href={OPEN_URL + pageid} target="_blank" className="item" >
         <div className="itemInfo">
             {original && <img src={original.source}/>}
           <div>
@@ -15,7 +18,7 @@ export default class WikiItem extends Component{
           </div>
         </div>
         <div className="itemFooter">
-        {(length/8|0)+ "Кб " + moment(touched).format("HH:mm, DD.MM.YYYY")}
+        {FOOTER_TEXT}
         </div>
       </a>
     );
